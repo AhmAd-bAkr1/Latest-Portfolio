@@ -150,13 +150,10 @@ export const projects = [
     bgImage: "/assets/backgrounds/poster.jpg",
     frameworks: [
   { id: 1, name: "React" },
-  { id: 2, name: "Tailwind CSS" },
+  { id: 2, name: "Tailwind-CSS" },
   { id: 3, name: "CRACO" },
   { id: 4, name: "React Router" },
   { id: 5, name: "Recharts" },
-  { id: 6, name: "React Calendar" },
-  { id: 7, name: "React Kanban" },
-  { id: 8, name: "ESLint" },
 ],
 
   },

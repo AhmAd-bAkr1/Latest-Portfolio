@@ -38,11 +38,20 @@ const AnimatedHeaderSection: React.FC<AnimatedHeaderSectionProps> = ({
   useEffect(() => {
     if (!sectionRef.current || !headerRef.current) return;
 
+    // const timeline = gsap.timeline({
+    //   scrollTrigger: withScrollTrigger
+    //     ? { trigger: sectionRef.current }
+    //     : undefined,
+    // });
     const timeline = gsap.timeline({
-      scrollTrigger: withScrollTrigger
-        ? { trigger: sectionRef.current }
-        : undefined,
-    });
+  scrollTrigger: withScrollTrigger
+    ? { 
+        trigger: sectionRef.current,
+        toggleActions: "play none none reset", // المهم هنا
+      }
+    : undefined,
+});
+
 
     timeline.from(sectionRef.current, {
       y: "50vh",

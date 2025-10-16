@@ -30,22 +30,18 @@ export function Planet(props: JSX.IntrinsicElements["group"]) {
   // Load GLTF model
   const { nodes, materials } = useGLTF("/models/Planet.glb") as unknown as PlanetGLTF;
 
-  /**
-   * Initialize GSAP animations
-   */
+  // Initialize GSAP animations
   useGSAP(() => {
     if (!shapeRef.current || !spheresRef.current || !ringRef.current) return;
 
     const timeline = gsap.timeline();
 
-    // Animate planet rising
     timeline.from(shapeRef.current.position, {
       y: 5,
       duration: 3,
       ease: "circ.out",
     });
 
-    // Animate spheres rotation
     timeline.from(
       spheresRef.current.rotation,
       {
@@ -58,7 +54,6 @@ export function Planet(props: JSX.IntrinsicElements["group"]) {
       "-=25%"
     );
 
-    // Animate ring rotation
     timeline.from(
       ringRef.current.rotation,
       {
@@ -72,12 +67,6 @@ export function Planet(props: JSX.IntrinsicElements["group"]) {
     );
   }, []);
 
-  /**
-   * Planet structure:
-   * - shapeRef: main group for planet position animation
-   * - spheresRef: group for planet spheres
-   * - ringRef: individual ring mesh
-   */
   return (
     <group ref={shapeRef} {...props} dispose={null}>
       <group ref={spheresRef}>
