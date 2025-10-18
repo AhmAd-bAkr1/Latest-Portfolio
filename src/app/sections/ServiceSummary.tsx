@@ -1,9 +1,7 @@
 "use client";
-
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-
 gsap.registerPlugin(ScrollTrigger);
 const ServiceSummary = () => {
   useGSAP(() => {
@@ -28,12 +26,16 @@ const ServiceSummary = () => {
         scrub: true,
       },
     });
+    gsap.to("#title-service-4", {
+      xPercent: -100,
+      scrollTrigger: {
+        trigger: "#title-service-4",
+        scrub: true,
+      },
+    });
   });
   return (
-    
-    <section className="relative pt-20 overflow-hidden font-light leading-snug text-center pb-42 contact-text-responsive">
-
-
+    <section className="mt-20 overflow-hidden font-light leading-snug text-center mb-42 contact-text-responsive">
       <div id="title-service-1">
         <p>Architucture</p>
       </div>
@@ -54,6 +56,9 @@ const ServiceSummary = () => {
         <p className="italic">Frontends</p>
         <div className="w-10 h-1 md:w-32 bg-gold" />
         <p>Scalability</p>
+      </div>
+      <div id="title-service-4" className="translate-x-48">
+        <p>Databases</p>
       </div>
     </section>
   );

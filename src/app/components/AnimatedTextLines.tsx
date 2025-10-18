@@ -1,18 +1,21 @@
 "use client";
-
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useRef } from "react";
 gsap.registerPlugin(ScrollTrigger);
-
-type AnimatedTextLinesProps = {
+interface AnimatedTextLinesProps {
+  // subTitle: string;
+  // title: string;
   text: string;
   className?: string;
-};
-export const AnimatedTextLines = ({ text, className }: AnimatedTextLinesProps) => {
-   const containerRef = useRef<HTMLDivElement | null>(null);
-  const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  // textColor?: string;
+  // withScrollTrigger?: boolean;
+}
+export const AnimatedTextLines: React.FC<AnimatedTextLinesProps> = ({ text, className }) => {
+  const containerRef = useRef(null);
+  // const lineRefs = useRef([]);
+  const lineRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const lines = text.split("\n").filter((line) => line.trim() !== "");
   useGSAP(() => {
     if (lineRefs.current.length > 0) {

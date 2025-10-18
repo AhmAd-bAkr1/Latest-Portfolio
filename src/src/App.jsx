@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
 import React, { useEffect, useState } from "react";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
@@ -24,7 +22,7 @@ const App = () => {
 
   return (
     <ReactLenis root className="relative w-screen min-h-screen overflow-x-auto">
-      {/* {!isReady && (
+      {!isReady && (
         <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light">
           <p className="mb-4 text-xl tracking-widest animate-pulse">
             Loading {Math.floor(progress)}%
@@ -36,15 +34,10 @@ const App = () => {
             ></div>
           </div>
         </div>
-      )} */}
-      {/* <div
-        className={`${
-          isReady ? "opacity-100" : "opacity-0"
-        } transition-opacity duration-1000`}
-      > */}
+      )}
       <div
         className={`${
-         "opacity-100" 
+          isReady ? "opacity-100" : "opacity-0"
         } transition-opacity duration-1000`}
       >
         <Navbar />

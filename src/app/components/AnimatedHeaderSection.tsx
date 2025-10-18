@@ -1,95 +1,55 @@
 "use client";
-
-import React, { useRef, useEffect } from "react";
+import React from "react";
+import { useRef } from "react";
+import { AnimatedTextLines } from "./AnimatedTextLines";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {AnimatedTextLines} from "./AnimatedTextLines";
 
-gsap.registerPlugin(ScrollTrigger);
-
-type AnimatedHeaderSectionProps = {
-  title: string;
+interface AnimatedHeaderProps {
   subTitle: string;
+  title: string;
   text: string;
-  textColor?: string; // Optional, allows dynamic color
+  textColor?: string;
   withScrollTrigger?: boolean;
-  subtitleClassName?: string;
-  titleClassName?: string;
-  textClassName?: string;
-  borderColor?: string;
-};
-
-const AnimatedHeaderSection: React.FC<AnimatedHeaderSectionProps> = ({
-  title,
-  subTitle,
-  text,
-  textColor = "text-black",
-  withScrollTrigger = true,
-  subtitleClassName = "",
-  titleClassName = "",
-  textClassName = "",
-  borderColor = "",
-}) => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-
-  const titleParts = title.split(" ");
-
-  useEffect(() => {
-    if (!sectionRef.current || !headerRef.current) return;
-
-    // const timeline = gsap.timeline({
-    //   scrollTrigger: withScrollTrigger
-    //     ? { trigger: sectionRef.current }
-    //     : undefined,
-    // });
-    const timeline = gsap.timeline({
-  scrollTrigger: withScrollTrigger
-    ? { 
-        trigger: sectionRef.current,
-        toggleActions: "play none none reset", // المهم هنا
-      }
-    : undefined,
-});
-
-
-    timeline.from(sectionRef.current, {
+}
+const AnimatedHeaderSection: React.FC<AnimatedHeaderProps> = ({ subTitle, title, text, textColor, withScrollTrigger = false}) => {
+  const contextRef = useRef(null);
+  const headerRef = useRef(null);
+  const shouldSplitTitle = title.includes(" ");
+  const titleParts = shouldSplitTitle ? title.split(" ") : [title];
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: withScrollTrigger
+        ? {
+            trigger: contextRef.current,
+          }
+        : undefined,
+    });
+    tl.from(contextRef.current, {
       y: "50vh",
       duration: 1,
       ease: "circ.out",
     });
-
-    timeline.from(
+    tl.from(
       headerRef.current,
       {
         opacity: 0,
-        y: 200,
+        y: "200",
         duration: 1,
         ease: "circ.out",
       },
       "<+0.2"
     );
-
-    return () => {
-      timeline.kill();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
-  }, [withScrollTrigger]);
-
+  }, []);
   return (
-    <section
-      ref={sectionRef}
-      className="overflow-hidden"
-      aria-label="Animated header section"
-    >
-      {/* Header */}
+    <div ref={contextRef}>
       <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}>
         <div
           ref={headerRef}
-          className={`flex flex-col justify-center gap-12 pt-16 sm:gap-16 ${titleClassName}`}
+          className="flex flex-col justify-center gap-12 pt-16 sm:gap-16"
         >
           <p
-            className={`text-sm font-light tracking-[0.5rem] uppercase px-10 ${textColor} ${subtitleClassName}`}
+            className={`text-sm font-light tracking-[0.5rem] uppercase px-10 ${textColor}`}
           >
             {subTitle}
           </p>
@@ -104,18 +64,16 @@ const AnimatedHeaderSection: React.FC<AnimatedHeaderSectionProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Animated Text */}
       <div className={`relative px-10 ${textColor}`}>
-        <div className={`absolute inset-x-0 border-t-2 ${borderColor}`} />
+        <div className="absolute inset-x-0 border-t-2" />
         <div className="py-12 sm:py-16 text-end">
           <AnimatedTextLines
             text={text}
-            className={`font-light uppercase value-text-responsive ${textColor} ${textClassName}`}
+            className={`font-light uppercase value-text-responsive ${textColor}`}
           />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
