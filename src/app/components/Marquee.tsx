@@ -184,7 +184,7 @@ tl.eventCallback("onReverseComplete", () => {
     });
 
     Observer.create({
-      onChangeY(self) {
+      onChangeY(self: Observer) {
         let factor = 2.5;
         if ((!reverse && self.deltaY < 0) || (reverse && self.deltaY > 0)) {
           factor *= -1;
