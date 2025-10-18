@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import gsap from "gsap";
@@ -23,13 +24,21 @@ interface MarqueeConfig {
   speed?: number;
 }
 
-interface MarqueeTimeline extends gsap.core.Timeline {
+// interface MarqueeTimeline extends gsap.core.Timeline {
+//   next?: (vars?: gsap.TweenVars) => gsap.core.Tween;
+//   previous?: (vars?: gsap.TweenVars) => gsap.core.Tween;
+//   current?: () => number;
+//   toIndex?: (index: number, vars?: gsap.TweenVars) => gsap.core.Tween;
+//   times?: number[];
+// }
+
+type MarqueeTimeline = ReturnType<typeof gsap.timeline> & {
   next?: (vars?: gsap.TweenVars) => gsap.core.Tween;
   previous?: (vars?: gsap.TweenVars) => gsap.core.Tween;
   current?: () => number;
   toIndex?: (index: number, vars?: gsap.TweenVars) => gsap.core.Tween;
   times?: number[];
-}
+};
 
 const Marquee: React.FC<MarqueeProps> = ({
   items,
@@ -45,11 +54,11 @@ const Marquee: React.FC<MarqueeProps> = ({
     items: HTMLSpanElement[],
     config: MarqueeConfig = {}
   ): MarqueeTimeline {
-    const tl = gsap.timeline({
+    const tl : MarqueeTimeline = gsap.timeline({
   repeat: config.repeat ?? -1,
   paused: config.paused ?? false,
   defaults: { ease: "none" },
-}) as MarqueeTimeline;
+}) as any;
 
 // أضف الـ callback بعد إنشاء الـ timeline لتفادي الخطأ
 tl.eventCallback("onReverseComplete", () => {
