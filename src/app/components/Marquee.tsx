@@ -33,10 +33,10 @@ interface MarqueeConfig {
 // }
 
 type MarqueeTimeline = ReturnType<typeof gsap.timeline> & {
-  next?: (vars?: Record<string, any>) => gsap.core.Tween;
-  previous?: (vars?: Record<string, any>) => gsap.core.Tween;
+  next?: (vars?: Record<string, any>) => gsap.core.Animation;
+  previous?: (vars?: Record<string, any>) => gsap.core.Animation;
   current?: () => number;
-  toIndex?: (index: number, vars?: Record<string, any>) => gsap.core.Tween;
+  toIndex?: (index: number, vars?: Record<string, any>) => gsap.core.Animation;
   times?: number[];
 };
 
