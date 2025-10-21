@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module "@gsap/react";
 declare module "gsap";
 declare module "gsap/all";

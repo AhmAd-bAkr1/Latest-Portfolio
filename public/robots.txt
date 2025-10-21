@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://latest-portfolio-omega-five.vercel.app
+
+# Sitemaps
+Sitemap: https://latest-portfolio-omega-five.vercel.app/sitemap.xml
